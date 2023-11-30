@@ -3,8 +3,13 @@ import { AutoComplete, Input } from "antd";
 import type { SelectProps } from "antd/es/select";
 import { debounce } from "lodash";
 
+import { useAppDispatch } from "../../hooks/ReduxHooks";
+import { addListItem } from "../../store/AppSlice";
+
 const SearchInput = () => {
   const [searchResults, setSearchResults] = useState<SelectProps[]>([]);
+
+  const dispatch = useAppDispatch();
 
   const fetchShoppingItems = (query: string) => {
     fetch(`https://api.frontendeval.com/fake/food/${query}`)
@@ -22,7 +27,7 @@ const SearchInput = () => {
   const debounceFetchShoppingItems = debounce(fetchShoppingItems, 1500);
 
   const handleSelect = (value: string) => {
-    // console.log(value);
+    dispatch(addListItem(value));
   };
 
   const handleSearch = (value: string) => {
