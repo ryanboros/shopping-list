@@ -1,4 +1,4 @@
-import { List } from "antd";
+import { List, Typography } from "antd";
 import { CheckCircleTwoTone, DeleteTwoTone } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
@@ -11,6 +11,8 @@ import {
 import "./ShoppingList.css";
 
 const ShoppingList = () => {
+  const { Text } = Typography;
+
   const { shoppingListItems } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
@@ -31,29 +33,32 @@ const ShoppingList = () => {
       className="shopping-list-container"
       dataSource={shoppingListItems}
       itemLayout="horizontal"
+      size="large"
       renderItem={(item) => {
+        const textProps = {
+          // strong: item.checked ? false : true,
+          delete: item.checked ? true : false,
+          disabled: item.checked ? true : false,
+        };
+
         return (
           <List.Item
             actions={[
               <DeleteTwoTone
-                twoToneColor="#eb2f96"
                 onClick={() => deleteItemHandler(item)}
+                style={{ fontSize: "20px" }}
+                twoToneColor="#eb2f96"
               />,
             ]}
             className={"shopping-list-item"}
           >
             <>
               <CheckCircleTwoTone
-                twoToneColor={item.checked ? "#52c41a" : "#ccc"}
                 onClick={() => toggleCheckedItemHandler(item)}
+                style={{ fontSize: "20px" }}
+                twoToneColor={item.checked ? "#52c41a" : "#ccc"}
               />
-              <div
-                className={`shopping-list-item-label ${
-                  item.checked ? "checked" : ""
-                }`}
-              >
-                {item.value}
-              </div>
+              <Text {...textProps}>{item.value}</Text>
             </>
           </List.Item>
         );

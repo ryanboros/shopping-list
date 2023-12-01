@@ -1,8 +1,3 @@
 .shopping-list-container {
   margin-top: 2em;
 }
-
-.shopping-list-item-label.checked  {
-  color: #aaa;
-  text-decoration: line-through;
-}

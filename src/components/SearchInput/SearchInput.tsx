@@ -38,11 +38,12 @@ const SearchInput = () => {
 
   return (
     <AutoComplete
+      notFoundContent="Item not found"
       options={searchResults}
-      onSelect={handleSelect}
       onSearch={handleSearch}
+      onSelect={handleSelect}
     >
-      <Input.Search enterButton />
+      <Input.Search enterButton placeholder="Search for items" />
     </AutoComplete>
   );
 };
